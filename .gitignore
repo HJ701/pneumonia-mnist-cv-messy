@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.DS_Store
+# downloaded data (do not commit)
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+# outputs
+runs/*
+reports/*
+figures/*
+!runs/.gitkeep
+!reports/.gitkeep
+!figures/.gitkeep

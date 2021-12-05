@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score
 from src.data.get_data import get_loaders
 from src.models.cnn import SmallCNN
@@ -48,6 +49,17 @@ def main():
         if va_acc > best:
             best = va_acc
             torch.save(model.state_dict(), "runs/best_model.pt")
+    
+    with open("runs/notes.txt", "w", encoding="utf-8") as f:
+        f.write(f"best_val_acc={best}\n")
+    
+    # sloppy plot: just fake history by re-running prints? (ugh)
+    # TODO: actually store history properly
+    plt.figure()
+    plt.title("Training done (no history yet)")
+    plt.plot([0, 1], [0, best])
+    plt.savefig("runs/plot.png")
+    plt.close()
 
 if __name__ == "__main__":
     main()

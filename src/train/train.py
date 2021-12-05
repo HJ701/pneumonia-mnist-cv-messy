@@ -28,8 +28,9 @@ def run_one_epoch(model, loader, opt=None, device="cpu"):
             all_p.extend(list(pred))
             all_y.extend(list(y.detach().cpu().numpy()))
     
-    acc = accuracy_score(all_y, all_p)
-    return sum(losses)/len(losses), acc
+    avg_loss = sum(losses)/len(losses) if losses else 0.0
+    acc = accuracy_score(all_y, all_p) if len(all_y) else 0.0
+    return avg_loss, acc
 
 def main():
     seed_everything(42)
@@ -53,8 +54,6 @@ def main():
     with open("runs/notes.txt", "w", encoding="utf-8") as f:
         f.write(f"best_val_acc={best}\n")
     
-    # sloppy plot: just fake history by re-running prints? (ugh)
-    # TODO: actually store history properly
     plt.figure()
     plt.title("Training done (no history yet)")
     plt.plot([0, 1], [0, best])
